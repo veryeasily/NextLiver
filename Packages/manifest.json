@@ -2,11 +2,6 @@
   "dependencies": {
     "com.cysharp.unitask": "2.2.5",
     "com.neuecc.unirx": "7.1.0",
-    "com.unity-atoms.unity-atoms-base-atoms": "4.4.3",
-    "com.unity-atoms.unity-atoms-core": "4.4.3",
-    "com.unity-atoms.unity-atoms-mono-hooks": "4.4.3",
-    "com.unity-atoms.unity-atoms-scene-mgmt": "4.4.3",
-    "com.unity-atoms.unity-atoms-tags": "4.4.3",
     "com.unity.2d.animation": "5.0.6",
     "com.unity.2d.tilemap": "1.0.0",
     "com.unity.collab-proxy": "1.5.7",
@@ -63,11 +58,6 @@
         "com.cysharp.unitask",
         "com.neuecc.unirx",
         "com.openupm",
-        "com.unity-atoms.unity-atoms-base-atoms",
-        "com.unity-atoms.unity-atoms-core",
-        "com.unity-atoms.unity-atoms-mono-hooks",
-        "com.unity-atoms.unity-atoms-scene-mgmt",
-        "com.unity-atoms.unity-atoms-tags",
         "dev.yarnspinner.unity"
       ]
     }

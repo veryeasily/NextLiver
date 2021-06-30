@@ -1,10 +1,12 @@
-using UnityEngine;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 
 namespace Liver {
     public class Startup : SerializedMonoBehaviour {
-        private void Start() {
-            Debug.Log("Startup: Start()");
+        public PrefabFactory Factory;
+
+        public void Awake() {
+            DOTween.Init();
         }
     }
 }
