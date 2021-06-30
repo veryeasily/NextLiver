@@ -48,7 +48,13 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0"
+    "com.unity.modules.xr": "1.0.0",
+    "com.unity-atoms.unity-atoms-core": "4.4.3",
+    "com.unity-atoms.unity-atoms-base-atoms": "4.4.3",
+    "com.unity-atoms.unity-atoms-mono-hooks": "4.4.3",
+    "com.unity-atoms.unity-atoms-tags": "4.4.3",
+    "com.unity-atoms.unity-atoms-scene-mgmt": "4.4.3",
+    "com.syomus.proceduraltoolkit": "0.2.3"
   },
   "scopedRegistries": [
     {
@@ -58,6 +64,12 @@
         "com.cysharp.unitask",
         "com.neuecc.unirx",
         "com.openupm",
+        "com.syomus.proceduraltoolkit",
+        "com.unity-atoms.unity-atoms-base-atoms",
+        "com.unity-atoms.unity-atoms-core",
+        "com.unity-atoms.unity-atoms-mono-hooks",
+        "com.unity-atoms.unity-atoms-scene-mgmt",
+        "com.unity-atoms.unity-atoms-tags",
         "dev.yarnspinner.unity"
       ]
     }

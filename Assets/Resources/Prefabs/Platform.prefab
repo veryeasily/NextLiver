@@ -1,0 +1,218 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1868800467891993602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1868800467891993603}
+  - component: {fileID: 1868800467891993615}
+  - component: {fileID: 1868800467891993614}
+  - component: {fileID: 1868800467891993613}
+  - component: {fileID: 1868800467891993612}
+  m_Layer: 0
+  m_Name: Platform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1868800467891993603
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868800467891993602}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1868800467891993615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868800467891993602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f210828086c1a4398856e1ba65627c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blendMode: 1
+  scaleMode: 0
+  color: {r: 0, g: 0, b: 0, a: 1}
+  detailLevel: 2
+  zTest: 4
+  zOffsetFactor: 0
+  zOffsetUnits: 0
+  stencilComp: 8
+  stencilOpPass: 0
+  stencilRefID: 0
+  stencilReadMask: 255
+  stencilWriteMask: 255
+  fill:
+    type: 0
+    space: 0
+    colorStart: {r: 0, g: 0, b: 0, a: 1}
+    colorEnd: {r: 1, g: 1, b: 1, a: 1}
+    linearStart: {x: 0, y: 0, z: 0}
+    linearEnd: {x: 0, y: 1, z: 0}
+    radialOrigin: {x: 0, y: 0, z: 0}
+    radialRadius: 1
+  useFill: 0
+  pivot: 1
+  width: 1
+  height: 1
+  type: 0
+  cornerRadiusMode: 0
+  cornerRadii: {x: 0.25, y: 0.25, z: 0.25, w: 0.25}
+  thickness: 0.1
+  thicknessSpace: 0
+--- !u!33 &1868800467891993614
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868800467891993602}
+  m_Mesh: {fileID: 43100795730674332, guid: a3d1f56cebf202c448b6fb479f61a9dc, type: 2}
+--- !u!23 &1868800467891993613
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868800467891993602}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 4c5c07ca7d8914b49b41056dfe1c19f3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1868800467891993612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868800467891993602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788c142ac7cf4c1289d489be61b3c14c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Duration: 1
+  CurrentColor: {r: 1, g: 0, b: 0, a: 1}
+  Left:
+    _usage: 1
+    _value: 0
+    _constant: {fileID: 11400000, guid: 67bf90f799c724a568b51ac79140693c, type: 2}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
+  Right:
+    _usage: 1
+    _value: 0
+    _constant: {fileID: 11400000, guid: fe6b6891e16c648579bb81c899cbe319, type: 2}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
+  Top:
+    _usage: 1
+    _value: 0
+    _constant: {fileID: 11400000, guid: 7d514d4599a604afc8fc2729ad3d783a, type: 2}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
+  Bottom:
+    _usage: 1
+    _value: 0
+    _constant: {fileID: 11400000, guid: 500630772b37a4d4a9b77a53638e3bb6, type: 2}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
+  MaxWidth:
+    _usage: 1
+    _value: 0
+    _constant: {fileID: 11400000, guid: d8760acd0da9445c1a64f333cc0d8d16, type: 2}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
+  MinWidth:
+    _usage: 1
+    _value: 0
+    _constant: {fileID: 11400000, guid: e05bd2cd15b894e91aa22f83f039e2d5, type: 2}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
+  MaxHeight:
+    _usage: 1
+    _value: 0
+    _constant: {fileID: 11400000, guid: 72c4f8f2eb48a47e89f8542bce4a1b5c, type: 2}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
+  MinHeight:
+    _usage: 1
+    _value: 0
+    _constant: {fileID: 11400000, guid: ff2d07ea7d06e48289098335e0dc8068, type: 2}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
+  DurationDistribution:
+    _usage: 1
+    _value:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _constant: {fileID: 11400000, guid: 34b1267450107498b953301bbcb6e4f3, type: 2}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
+  Width: 1
+  Height: 1
+  Position: {x: 0, y: 0}
+  Curve:
+    _usage: 1
+    _value: 0
+    _constant: {fileID: 11400000, guid: d195f3540a0cc487ba59441e98ef9fda, type: 2}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}

@@ -1,20 +1,33 @@
+using DG.Tweening;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using UniRx;
+using UnityAtoms;
+using UnityAtoms.BaseAtoms;
 using Random = UnityEngine.Random;
 
 namespace Liver {
     [RequireComponent(typeof(Shapes.Rectangle))]
     public class Platform : SerializedMonoBehaviour {
-        public FloatReactiveProperty Duration = new FloatReactiveProperty();
-        public ColorReactiveProperty CurrentColor = new ColorReactiveProperty();
+        public float Duration = 1f;
+        public Color CurrentColor = Color.red;
 
-        public FloatReactiveProperty Width = new FloatReactiveProperty(1f);
-        public FloatReactiveProperty Height = new FloatReactiveProperty(1f);
-        public Vector2ReactiveProperty Position = new Vector2ReactiveProperty(Vector2.zero);
+        public FloatReference Left;
+        public FloatReference Right;
+        public FloatReference Top;
+        public FloatReference Bottom;
+        public FloatReference MaxWidth;
+        public FloatReference MinWidth;
+        public FloatReference MaxHeight;
+        public FloatReference MinHeight;
+        public AnimationCurveReference DurationDistribution;
+        public float Width = 1f;
+        public float Height = 1f;
+        public Vector2 Position = Vector2.zero;
+        public EaseReference Curve;
+        
+        private Shapes.Rectangle _rectangle;
         
         private static GameState _state => GameState.Instance;
-        private Shapes.Rectangle _rectangle;
         
 
         public static Platform Initialize(Transform parent = null) {
@@ -26,34 +39,54 @@ namespace Liver {
             return platform;
         }
 
-        public void Awake() {
-            Randomize();
-        }
-        
         public void Start() {
             _rectangle = GetComponent<Shapes.Rectangle>();
-            _state.PlatformViews.Add(this);
-            
-            Width.Subscribe(_ => Draw());
-            Height.Subscribe(_ => Draw());
-            CurrentColor.Subscribe(_ => Draw());
-            Position.Subscribe(_ => Draw());
+            _state.Platforms.Add(this);
+            NextState();
         }
 
-        public void Randomize() {
-            Duration.Value = Random.Range(1f, 5f);
-            CurrentColor.Value = Random.ColorHSV();
-            Width.Value = Random.Range(1f, 5f);
-            Height.Value = Random.Range(1f, 5f);
-            Position.Value = Random.insideUnitCircle * Random.Range(1f, 3f);
+        private void Randomize() {
+            Duration = DurationDistribution.Value.Evaluate(Random.Range(0f, 1f));
+            CurrentColor = Color.HSVToRGB(0f, 0f, Random.Range(0f, 1f));
+            var x = Random.Range(Left.Value, Right.Value);
+            var y = Random.Range(Top.Value, Bottom.Value);
+            Position = new Vector2(x, y);
+            Width = Random.Range(MinWidth.Value, MaxWidth.Value);
+            Height = Random.Range(MinHeight.Value, MaxHeight.Value);
         }
 
-        private void Draw() {
-            transform.localPosition = Position.Value;
-            
-            _rectangle.Width = Width.Value;
-            _rectangle.Height = Height.Value;
-            _rectangle.Color = CurrentColor.Value;
+        private void NextState() {
+            Randomize();
+            Animate();
+        }
+
+        private void Animate() {
+            var seq = DOTween.Sequence();
+            seq.Join(MakeHeightTween());
+            seq.Join(MakeWidthTween());
+            seq.Join(MakeColorTween());
+            seq.Join(MakeTransformTween());
+            seq.OnComplete(() => NextState());
+            seq.SetEase(Curve.Value);
+        }
+
+        private Tween MakeTransformTween() {
+            return transform.DOMove(Position, Duration);
+        }
+
+        private Tween MakeColorTween() {
+            var r = _rectangle;
+            return DOTween.To(() => r.Color, col => r.Color = col, CurrentColor, Duration);
+        }
+
+        private Tween MakeWidthTween() {
+            var r = _rectangle;
+            return DOTween.To(() => r.Width, w => r.Width = w, Width, Duration);
+        }
+
+        private Tween MakeHeightTween() {
+            var r = _rectangle;
+            return DOTween.To(() => r.Height, h => r.Height = h, Height, Duration);
         }
     }
 }
