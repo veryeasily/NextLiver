@@ -1,92 +1,117 @@
-using DG.Tweening;
-using UnityEngine;
+using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using Shapes;
 using Sirenix.OdinInspector;
-using UnityAtoms;
+using UniRx;
 using UnityAtoms.BaseAtoms;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Liver {
-    [RequireComponent(typeof(Shapes.Rectangle))]
+    [RequireComponent(typeof(Line))]
     public class Platform : SerializedMonoBehaviour {
-        public float Duration = 1f;
-        public Color CurrentColor = Color.red;
+        public FloatReference NoiseRate;
+        public StringReference BoxText;
+        public BoolReference HasVisitedColor;
+        public ColorReference VisitedColor;
+        public GameObjectValueList TriggerGroup;
+        public ReactiveProperty<Color> MainColor;
+        [Required] public BoolReference Visited;
+        [Required] public ColorReference MinColor;
+        [Required] public ColorReference MaxColor;
+        [Required] public FloatReference MinDelay;
+        [Required] public FloatReference MaxDelay;
+        [NonSerialized, ShowInInspector] public Vector3Int Cell;
 
-        public FloatReference Left;
-        public FloatReference Right;
-        public FloatReference Top;
-        public FloatReference Bottom;
-        public FloatReference MaxWidth;
-        public FloatReference MinWidth;
-        public FloatReference MaxHeight;
-        public FloatReference MinHeight;
-        public AnimationCurveReference DurationDistribution;
-        public float Width = 1f;
-        public float Height = 1f;
-        public Vector2 Position = Vector2.zero;
-        public EaseReference Curve;
-        
-        private Shapes.Rectangle _rectangle;
-        
-        private static GameState _state => GameState.Instance;
-        
-
-        public static Platform Initialize(Transform parent = null) {
-            var go = new GameObject("Platform");
-            if (parent != null) {
-                go.transform.parent = parent;
-            }
-            var platform = go.AddComponent<Platform>();
-            return platform;
-        }
+        private Grid _grid;
+        [ShowInInspector] private float _noiseVal;
+        [SerializeField, Required] private Line _line;
+        [SerializeField, Required] private Rectangle _rectangle;
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
         public void Start() {
-            _rectangle = GetComponent<Shapes.Rectangle>();
-            _state.Platforms.Add(this);
-            NextState();
+            _grid = FindObjectOfType<Grid>();
+            Cell = _grid.WorldToCell(transform.position);
+            GameState.Instance.ObjectGrid[Cell] = gameObject;
+            SyncColor();
+            MainColor.Subscribe(_ => SyncColor()).AddTo(this);
+            StartLoop();
+            GameState.Instance.CurrentTile.Subscribe(OnCurrentTileChange).AddTo(this);
         }
 
-        private void Randomize() {
-            Duration = DurationDistribution.Value.Evaluate(Random.Range(0f, 1f));
-            CurrentColor = Color.HSVToRGB(0f, 0f, Random.Range(0f, 1f));
-            var x = Random.Range(Left.Value, Right.Value);
-            var y = Random.Range(Top.Value, Bottom.Value);
-            Position = new Vector2(x, y);
-            Width = Random.Range(MinWidth.Value, MaxWidth.Value);
-            Height = Random.Range(MinHeight.Value, MaxHeight.Value);
+        public void OnDestroy() {
+            _cts.Cancel();
         }
 
-        private void NextState() {
-            Randomize();
-            Animate();
+        public void OnChangeVisited(bool visited) {
+            _cts.Cancel();
+            _cts = new CancellationTokenSource();
+            StartLoop();
         }
 
-        private void Animate() {
-            var seq = DOTween.Sequence();
-            seq.Join(MakeHeightTween());
-            seq.Join(MakeWidthTween());
-            seq.Join(MakeColorTween());
-            seq.Join(MakeTransformTween());
-            seq.OnComplete(() => NextState());
-            seq.SetEase(Curve.Value);
+        private void OnCurrentTileChange(GameObject tile) {
+            if (tile != gameObject) return;
+            
+            Visited.Value = true;
+            if (TriggerGroup != null) {
+                foreach (var go in TriggerGroup) {
+                    go.GetComponent<Platform>().Visited.Value = true;
+                }
+            }
         }
 
-        private Tween MakeTransformTween() {
-            return transform.DOMove(Position, Duration);
+        // public void OnChangePlayerPosition(Vector3Int playerCell) {
+        //     if (Cell != playerCell) {
+        //         return;
+        //     }
+        //
+        //     CurrentPlatform.Value = gameObject;
+        //     Visited.Value = true;
+        //     if (TriggerGroup != null) {
+        //         foreach (var go in TriggerGroup) {
+        //             go.GetComponent<Platform>().Visited.Value = true;
+        //         }
+        //     }
+        // }
+
+        private void SyncColor() {
+            _line.Color = MainColor.Value;
+            _rectangle.Color = MainColor.Value;
         }
 
-        private Tween MakeColorTween() {
-            var r = _rectangle;
-            return DOTween.To(() => r.Color, col => r.Color = col, CurrentColor, Duration);
+        private async void StartLoop() {
+            try {
+                while (true) {
+                    var delay = Random.Range(MinDelay.Value, MaxDelay.Value);
+                    await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: _cts.Token);
+                    var vec1 = Random.insideUnitCircle;
+                    var vec2 = Random.insideUnitCircle;
+                    MainColor.Value = RandomColor();
+                    _line.Start = Modify(vec1);
+                    _line.End = Modify(vec2);
+                }
+            }
+            catch (OperationCanceledException e) {
+            }
         }
 
-        private Tween MakeWidthTween() {
-            var r = _rectangle;
-            return DOTween.To(() => r.Width, w => r.Width = w, Width, Duration);
+        private Color RandomColor() {
+            _noiseVal = Mathf.PerlinNoise(Time.time * NoiseRate.Value, 0f);
+            var t = Mathf.Abs(_noiseVal);
+            var c1 = Visited.Value && HasVisitedColor.Value ? VisitedColor.Value.linear : MinColor.Value.linear;
+            var c2 = MaxColor.Value.linear;
+            return Color.Lerp(c1, c2, t).gamma;
         }
 
-        private Tween MakeHeightTween() {
-            var r = _rectangle;
-            return DOTween.To(() => r.Height, h => r.Height = h, Height, Duration);
+        private Vector2 Modify(Vector2 vec) {
+            if (Mathf.Abs(vec.x) > Mathf.Abs(vec.y)) {
+                vec.x = vec.x > 0 ? 0.5f : -0.5f;
+            } else {
+                vec.y = vec.y > 0 ? 0.5f : -0.5f;
+            }
+
+            return vec;
         }
     }
 }

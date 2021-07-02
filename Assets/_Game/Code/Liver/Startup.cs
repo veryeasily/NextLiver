@@ -5,8 +5,6 @@ using UnityEngine.Tilemaps;
 
 namespace Liver {
     public class Startup : SerializedMonoBehaviour {
-        public PrefabFactory Factory;
-
         public void Awake() {
             DOTween.Init().SetCapacity(500, 200);
         }

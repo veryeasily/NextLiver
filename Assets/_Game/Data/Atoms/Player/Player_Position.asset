@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f868f8b3380b47a38cf0b95f42c134b, type: 3}
+  m_Script: {fileID: 11500000, guid: 51e8d87d7b6d447a0b9f1f716eb80792, type: 3}
   m_Name: Player_Position
   m_EditorClassIdentifier: 
   _developerDescription: 

@@ -1,42 +1,60 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
-using UniRx;
+using UnityAtoms;
 using UnityAtoms.BaseAtoms;
 
 namespace Liver {
     public class Player : SerializedMonoBehaviour {
+        // ReSharper disable once MemberCanBePrivate.Global
         public static Player Instance;
         public FloatReference MoveSpeed;
-        public Vector3Reference Position;
-        public ReactiveProperty<Vector3Int> Direction;
-        
-        [OdinSerialize] private Grid _grid;
+        public Vector3IntVariable Position;
+        public Vector3IntVariable Direction;
+        public GameObjectValueList PlatformGameObjects;
+
+        [SerializeField] private Grid _grid;
 
         public void Start() {
             if (Instance != null) {
                 throw new Exception("Player Instance already set");
             }
+
             Instance = this;
-            Position.Value = _grid.LocalToCell(transform.localPosition);
-            Direction.Subscribe(HandleDirection);
+            Position.Value = _grid.WorldToCell(transform.position);
+        }
+
+        public void OnDestroy() {
+            DOTween.Kill(this);
         }
 
         public void OnMove(InputAction.CallbackContext ctx) {
-            if (!ctx.started) return;
-            var vec = ctx.ReadValue<Vector2>();
-            Direction.Value = new Vector3Int((int)Mathf.Round(vec.x), (int)Mathf.Round(vec.y), 0);
+            if (!ctx.started || IsMoving()) return;
+
+            var vec = Vector3Int.FloorToInt(ctx.ReadValue<Vector2>());
+            Direction.Value = vec;
+            HandleDirection(vec);
+        }
+
+        private bool IsMoving() {
+            return Direction.Value != Vector3Int.zero;
         }
 
         private void HandleDirection(Vector3Int dir) {
             if (dir == Vector3Int.zero) return;
-            
-            var updateVec = Position.Value + Direction.Value;
-            var updatePos = _grid.CellToLocal(Vector3Int.FloorToInt(updateVec)) + 0.5f * Vector3.one;
-            transform.DOMove(updatePos, 1 / MoveSpeed.Value).OnComplete(SyncPosition);
+
+            var updateVec = Position.Value + dir;
+            var cells = from go in PlatformGameObjects select go.GetComponent<Platform>().Cell;
+            if (cells.Contains(updateVec)) {
+                var updatePos = _grid.GetCellCenterWorld(updateVec);
+                transform.DOMove(updatePos, 1f / MoveSpeed.Value).OnComplete(SyncPosition);
+            } else {
+                Direction.Value = Vector3Int.zero;
+            }
         }
 
         private void SyncPosition() {

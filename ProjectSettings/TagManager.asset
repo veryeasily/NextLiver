@@ -7,6 +7,7 @@ TagManager:
   - Container
   - UI
   - World
+  - PlatformManager
   layers:
   - Default
   - TransparentFX
@@ -43,4 +44,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Curtain
+    uniqueID: 1021373457
+    locked: 0
+  - name: UISortingLayer
+    uniqueID: 335902963
     locked: 0
