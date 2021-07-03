@@ -12,10 +12,7 @@ using UnityEngine.SceneManagement;
 
 namespace Liver {
     public class LevelManager : SerializedMonoBehaviour {
-        [SerializeField] private TMP_Text _textComponent;
         [SerializeField] private Curtains _curtains;
-        [SerializeField] private Rectangle _fadeInRectangle;
-        [SerializeField] private FloatReference _fadeOutTime;
         [SerializeField] private Vector3IntReference _playerPosition;
 
         public void Awake() {
@@ -23,10 +20,6 @@ namespace Liver {
         }
 
         public void Start() {
-            if (_fadeInRectangle == null || !_fadeInRectangle.gameObject.activeInHierarchy) {
-                return;
-            }
-
             _curtains.OnFinishShowCurtains += FinishShowCurtains;
             _curtains.HideCurtains();
         }

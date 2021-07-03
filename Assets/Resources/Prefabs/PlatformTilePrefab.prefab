@@ -125,8 +125,8 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 491351789
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &3813827251843506559
@@ -150,18 +150,39 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  Visited:
-    _usage: 3
-    _value: 0
-    _constant: {fileID: 0}
-    _variable: {fileID: 0}
-    _variableInstancer: {fileID: 579262633204150236}
   NoiseRate:
     _usage: 1
     _value: 0
     _constant: {fileID: 11400000, guid: 4e1b69e9562fe46498b56107a3b37d9d, type: 2}
     _variable: {fileID: 0}
     _variableInstancer: {fileID: 0}
+  BoxText:
+    _usage: 0
+    _value: 
+    _constant: {fileID: 0}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
+  HasVisitedColor:
+    _usage: 0
+    _value: 0
+    _constant: {fileID: 0}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
+  VisitedColor:
+    _usage: 0
+    _value: {r: 0, g: 0, b: 0, a: 0}
+    _constant: {fileID: 0}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
+  TriggerGroup: {fileID: 0}
+  MainColor:
+    value: {r: 1, g: 1, b: 1, a: 1}
+  Visited:
+    _usage: 3
+    _value: 0
+    _constant: {fileID: 0}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 579262633204150236}
   MinColor:
     _usage: 1
     _value: {r: 0, g: 0, b: 0, a: 0}
@@ -186,16 +207,6 @@ MonoBehaviour:
     _constant: {fileID: 11400000, guid: 76b23ad047612470fb5b562b7aa80479, type: 2}
     _variable: {fileID: 0}
     _variableInstancer: {fileID: 0}
-  MainColor:
-    value: {r: 1, g: 1, b: 1, a: 1}
-  BoxText:
-    _usage: 0
-    _value: 
-    _constant: {fileID: 0}
-    _variable: {fileID: 0}
-    _variableInstancer: {fileID: 0}
-  TriggerGroup: {fileID: 0}
-  CurrentPlatform: {fileID: 11400000, guid: b03a2672c7f6c4d749c109aa02e7f365, type: 2}
   _line: {fileID: 82028614449487259}
   _rectangle: {fileID: 1278557168324072000}
 --- !u!114 &8846612722226618920

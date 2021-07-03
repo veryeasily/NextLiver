@@ -45,6 +45,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Main
+    uniqueID: 491351789
+    locked: 0
+  - name: Player
+    uniqueID: 3392619355
+    locked: 0
   - name: Curtain
     uniqueID: 1021373457
     locked: 0
