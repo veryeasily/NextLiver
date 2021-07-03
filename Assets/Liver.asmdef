@@ -1,0 +1,32 @@
+{
+    "name": "Liver",
+    "rootNamespace": "",
+    "references": [
+        "GUID:234839f5b92104d4fb68841aefec625b",
+        "GUID:13a6fdc14ca9df84eb8019bc66fa9e5d",
+        "GUID:29492541a59d04a81b47a7f225e8a22d",
+        "GUID:14165214884ae4a619bfb290f28194a7",
+        "GUID:39d90d64ded314c27a72b2586cd86439",
+        "GUID:7cead87e598844809ae298f71540fc18",
+        "GUID:e7e15a8eb685c44439fe73b95ef81946",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+        "GUID:613783dc1674e844b87788ea74ede0f6",
+        "GUID:cbdf09464b6b87745be748a67e5a21a0",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:598750ec792e4472396f5fbc092caa65",
+        "GUID:87264ae76e36244ae9adf5b5fbf7ca19",
+        "GUID:9bc48b3aaac2247dbad05ace2c2d11d7",
+        "GUID:35405fc9d817249958711883902db606"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

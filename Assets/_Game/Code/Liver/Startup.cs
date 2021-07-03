@@ -1,12 +1,12 @@
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Liver {
     public class Startup : SerializedMonoBehaviour {
         public void Awake() {
             DOTween.Init().SetCapacity(500, 200);
+            DOTween.debugMode = true;
         }
 
         public void Start() {

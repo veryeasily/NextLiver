@@ -1,16 +1,14 @@
 using System;
-using System.Threading;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UniRx;
 using UnityAtoms.BaseAtoms;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Liver {
     public class DangerousTile : SerializedMonoBehaviour {
         public FloatConstant Interval;
-        public static event Action<DangerousTile> OnHitPlayer;
+
         private bool _isCurrent;
         [SerializeField] private GameObject _dangerousObject;
         [ShowInInspector] private readonly ReactiveProperty<bool> _isDangerous = new ReactiveProperty<bool>(false);
@@ -28,10 +26,11 @@ namespace Liver {
         private async void RunLoop() {
             try {
                 while (true) {
-                    await UniTask.Delay(TimeSpan.FromSeconds(Interval.Value), cancellationToken: this.GetCancellationTokenOnDestroy());
+                    await UniTask.Delay(TimeSpan.FromSeconds(Interval.Value),
+                        cancellationToken: this.GetCancellationTokenOnDestroy());
                     _isDangerous.Value = !_isDangerous.Value;
                     if (_isCurrent) {
-                        OnHitPlayer?.Invoke(this);
+                        MessageBroker.Default.Publish(this);
                     }
                 }
             }
@@ -45,7 +44,7 @@ namespace Liver {
 
             _isCurrent = true;
             if (_isDangerous.Value) {
-                OnHitPlayer?.Invoke(this);
+                MessageBroker.Default.Publish(this);
             }
         }
     }

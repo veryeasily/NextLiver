@@ -2,7 +2,6 @@ using UniRx;
 using System;
 using Sirenix.OdinInspector;
 using UnityAtoms;
-using UnityAtoms.BaseAtoms;
 using UnityEngine;
 
 namespace Liver {
