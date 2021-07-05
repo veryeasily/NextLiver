@@ -159,9 +159,9 @@ MonoBehaviour:
     _variable: {fileID: 0}
     _variableInstancer: {fileID: 0}
   BoxText:
-    _usage: 0
-    _value: Welcome to Liver!
-    _constant: {fileID: 0}
+    _usage: 1
+    _value: 
+    _constant: {fileID: 11400000, guid: 906a849ae899048de8c8ed28ab115144, type: 2}
     _variable: {fileID: 0}
     _variableInstancer: {fileID: 0}
   HasVisitedColor:

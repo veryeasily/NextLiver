@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Game/Data/Scenes/1_WhatItReallyIs.unity
+    path: Assets/_Game/Data/Scenes/1_BeginnerMind.unity
     guid: 946328acf17834060b27c3f284237a7a
+  - enabled: 1
+    path: Assets/_Game/Data/Scenes/x_Audio.unity
+    guid: c5062c2cfbc6846fda5914395a6354a4
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f66552d786cdf472eb990a723993b4bd, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e5547f903b6864338915838d788f0d5b, type: 2}

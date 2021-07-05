@@ -1,10 +1,14 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UniRx;
+using UnityAtoms.SceneMgmt;
 using UnityEngine.SceneManagement;
 
 namespace Liver {
     public class LevelManager : SerializedMonoBehaviour {
+        public SceneFieldConstant Scene;
+        
         public void Start() {
             MessageBroker
                 .Default
@@ -13,9 +17,11 @@ namespace Liver {
                 .AddTo(this);
         }
 
-        private void FinishShowCurtains() {
+        private async void FinishShowCurtains() {
             DOTween.KillAll();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().path);
+            var path = Scene.Value.ScenePath;
+            await SceneManager.UnloadSceneAsync(path).ToUniTask();
+            SceneManager.LoadScene(path, LoadSceneMode.Additive);
         }
     }
 }

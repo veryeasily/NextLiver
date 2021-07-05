@@ -1,6 +1,5 @@
 using DG.Tweening;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using TMPro;
 using UniRx;
 using UnityAtoms;
@@ -9,33 +8,51 @@ using UnityEngine;
 
 namespace Liver {
     public class Curtains : SerializedMonoBehaviour {
-        [OdinSerialize] private FloatConstant _showSpeed;
-        [OdinSerialize] private FloatConstant _hideSpeed;
-        [OdinSerialize] private AnimationCurveConstant _showCurve;
-        [OdinSerialize] private AnimationCurveConstant _hideCurve;
-        [OdinSerialize] private TMP_Text _textComponent;
-        [OdinSerialize] private CanvasGroup _canvasGroup;
+        [TabGroup("Main")] [SerializeField] private BoolReference _hasIntroCurtainFade;
+
+        [TabGroup("Main")] [SerializeField] private TMP_Text _textComponent;
+
+        [TabGroup("Main")] [SerializeField] private CanvasGroup _canvasGroup;
+
+        [TabGroup("Animation")] [SerializeField]
+        private FloatConstant _showSpeed;
+
+        [TabGroup("Animation")] [SerializeField]
+        private FloatConstant _hideSpeed;
+
+        [TabGroup("Animation")] [SerializeField]
+        private AnimationCurveConstant _showCurve;
+
+        [TabGroup("Animation")] [SerializeField]
+        private AnimationCurveConstant _hideCurve;
 
         public void Start() {
-            MessageBroker.Default.Receive<DangerousTile>().Subscribe(ShowCurtains).AddTo(this);
-            HideCurtains();
+            MessageBroker.Default.Receive<DangerousTile>().Subscribe(RunOutro).AddTo(this);
+            if (_hasIntroCurtainFade.Value) {
+                RunIntro();
+            } else {
+                FinishIntro();
+            }
         }
 
-        private void ShowCurtains(object obj) {
+        private void RunOutro(object obj) {
             _textComponent.enabled = true;
-            _canvasGroup.DOFade(1f, _showSpeed.Value).SetEase(_showCurve.Value).OnComplete(FinishShowCurtains);
+            gameObject.SetActive(false);
+            _canvasGroup.DOFade(1f, _showSpeed.Value).SetEase(_showCurve.Value).OnComplete(FinishOutro);
         }
 
-        private void HideCurtains() {
+        private void RunIntro() {
             _textComponent.enabled = false;
-            _canvasGroup.DOFade(0f, _hideSpeed.Value).SetEase(_hideCurve.Value).OnComplete(FinishHideCurtains);
+            gameObject.SetActive(true);
+            _canvasGroup.DOFade(0f, _hideSpeed.Value).SetEase(_hideCurve.Value).OnComplete(FinishIntro);
         }
 
-        private void FinishShowCurtains() {
+        private void FinishOutro() {
             MessageBroker.Default.Publish(new EndGameMessage());
         }
 
-        private void FinishHideCurtains() {
+        private void FinishIntro() {
+            gameObject.SetActive(false);
         }
     }
 }

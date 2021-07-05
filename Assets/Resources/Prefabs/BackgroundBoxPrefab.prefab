@@ -153,28 +153,28 @@ MonoBehaviour:
   Duration: 1
   CurrentColor: {r: 1, g: 0, b: 0, a: 1}
   Left:
-    _usage: 1
+    _usage: 2
     _value: 0
     _constant: {fileID: 11400000, guid: 67bf90f799c724a568b51ac79140693c, type: 2}
-    _variable: {fileID: 0}
+    _variable: {fileID: 11400000, guid: 09684f872e8e8495397001a850e42efd, type: 2}
     _variableInstancer: {fileID: 0}
   Right:
-    _usage: 1
+    _usage: 2
     _value: 0
     _constant: {fileID: 11400000, guid: fe6b6891e16c648579bb81c899cbe319, type: 2}
-    _variable: {fileID: 0}
+    _variable: {fileID: 11400000, guid: 6bbac4076b5cf470baa3a688fc0debbf, type: 2}
     _variableInstancer: {fileID: 0}
   Top:
-    _usage: 1
+    _usage: 2
     _value: 0
     _constant: {fileID: 11400000, guid: 7d514d4599a604afc8fc2729ad3d783a, type: 2}
-    _variable: {fileID: 0}
+    _variable: {fileID: 11400000, guid: 629a5118e95d4406b8585b29e291e701, type: 2}
     _variableInstancer: {fileID: 0}
   Bottom:
-    _usage: 1
+    _usage: 2
     _value: 0
     _constant: {fileID: 11400000, guid: 500630772b37a4d4a9b77a53638e3bb6, type: 2}
-    _variable: {fileID: 0}
+    _variable: {fileID: 11400000, guid: 8e274340bdf434da28198ad6a0c12324, type: 2}
     _variableInstancer: {fileID: 0}
   MaxWidth:
     _usage: 1

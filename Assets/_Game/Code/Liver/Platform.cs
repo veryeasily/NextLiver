@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Shapes;
@@ -17,20 +18,26 @@ namespace Liver {
         public ColorReference VisitedColor;
         public GameObjectValueList TriggerGroup;
         public ReactiveProperty<Color> MainColor;
+        
         [Required] public BoolReference Visited;
         [Required] public ColorReference MinColor;
         [Required] public ColorReference MaxColor;
         [Required] public FloatReference MinDelay;
         [Required] public FloatReference MaxDelay;
+        
         [NonSerialized, ShowInInspector] public Vector3Int Cell;
+        private static List<Platform> _platforms = new List<Platform>();
 
         private Grid _grid;
+        private CancellationTokenSource _cts = new CancellationTokenSource();
+        
         [ShowInInspector] private float _noiseVal;
         [SerializeField, Required] private Line _line;
         [SerializeField, Required] private Rectangle _rectangle;
-        private CancellationTokenSource _cts = new CancellationTokenSource();
 
         public void Start() {
+            _platforms.Add(this);
+            
             _grid = FindObjectOfType<Grid>();
             Cell = _grid.WorldToCell(transform.position);
             GameState.Instance.ObjectGrid[Cell] = gameObject;
