@@ -6,10 +6,9 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 namespace Liver {
-    [CreateAssetMenu(fileName = "NewVirtualCamList", menuName = "Liver/VirtualCamGrid")]
-    public class VirtualCamGrid : SerializedScriptableObject {
-        public Dictionary<Vector3Int, CinemachineVirtualCamera> Grid;
-        public IEnumerable<CinemachineVirtualCamera> Cameras => Grid.Values;
+    [CreateAssetMenu(fileName = "NewVirtualCamList", menuName = "Liver/VirtualCamList")]
+    public class VirtualCamList : SerializedScriptableObject {
+        public List<CinemachineVirtualCamera> Cameras = new List<CinemachineVirtualCamera>();
 
         public void SetActive(Vector3 pos) {
             var minDistance = float.PositiveInfinity;
@@ -27,17 +26,11 @@ namespace Liver {
         }
 
         public void Add(CinemachineVirtualCamera cam) {
-            var pos = cam.transform.position;
-            var coord = new Vector3Int(
-                (int) (pos.x / 20),
-                (int) (pos.y / 20),
-                0
-            );
-            Grid[coord] = cam;
+            Cameras.Add(cam);
         }
 
         public void Clear() {
-            Grid = new Dictionary<Vector3Int, CinemachineVirtualCamera>();
+            Cameras.Clear();
         }
     }
 }

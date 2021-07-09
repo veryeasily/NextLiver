@@ -26,8 +26,10 @@ namespace Liver {
         private async void RunLoop() {
             try {
                 while (true) {
-                    await UniTask.Delay(TimeSpan.FromSeconds(Interval.Value),
-                        cancellationToken: this.GetCancellationTokenOnDestroy());
+                    await UniTask.Delay(
+                        TimeSpan.FromSeconds(Interval.Value),
+                        cancellationToken: this.GetCancellationTokenOnDestroy()
+                    );
                     _isDangerous.Value = !_isDangerous.Value;
                     if (_isCurrent) {
                         MessageBroker.Default.Publish(this);

@@ -8,8 +8,6 @@ using UnityEngine;
 
 namespace Liver {
     public class Curtains : SerializedMonoBehaviour {
-        [TabGroup("Main")] [SerializeField] private BoolReference _hasIntroCurtainFade;
-
         [TabGroup("Main")] [SerializeField] private TMP_Text _textComponent;
 
         [TabGroup("Main")] [SerializeField] private CanvasGroup _canvasGroup;
@@ -26,22 +24,13 @@ namespace Liver {
         [TabGroup("Animation")] [SerializeField]
         private AnimationCurveConstant _hideCurve;
 
-        public void Start() {
-            MessageBroker.Default.Receive<DangerousTile>().Subscribe(RunOutro).AddTo(this);
-            if (_hasIntroCurtainFade.Value) {
-                RunIntro();
-            } else {
-                FinishIntro();
-            }
-        }
-
-        private void RunOutro(object obj) {
+        public void RunOutro() {
             _textComponent.enabled = true;
-            gameObject.SetActive(false);
+            gameObject.SetActive(true);
             _canvasGroup.DOFade(1f, _showSpeed.Value).SetEase(_showCurve.Value).OnComplete(FinishOutro);
         }
 
-        private void RunIntro() {
+        public void RunIntro() {
             _textComponent.enabled = false;
             gameObject.SetActive(true);
             _canvasGroup.DOFade(0f, _hideSpeed.Value).SetEase(_hideCurve.Value).OnComplete(FinishIntro);
