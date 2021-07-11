@@ -7,7 +7,10 @@ using UnityAtoms.BaseAtoms;
 using UnityEngine;
 
 namespace Liver {
-    public class Curtains : SerializedMonoBehaviour {
+    public class GameOverScreen : SerializedMonoBehaviour {
+        public static event System.Action OnIntroComplete;
+        public static event System.Action OnOutroComplete;
+        
         [TabGroup("Main")] [SerializeField] private TMP_Text _textComponent;
 
         [TabGroup("Main")] [SerializeField] private CanvasGroup _canvasGroup;
@@ -37,11 +40,12 @@ namespace Liver {
         }
 
         private void FinishOutro() {
-            MessageBroker.Default.Publish(new EndGameMessage());
+            OnOutroComplete?.Invoke();
         }
 
         private void FinishIntro() {
             gameObject.SetActive(false);
+            OnIntroComplete?.Invoke();
         }
     }
 }

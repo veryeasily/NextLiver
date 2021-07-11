@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 namespace Liver {
     public class LevelController : SerializedMonoBehaviour {
-        public Curtains Curtains;
+        public GameOverScreen GameOverScreen;
         public SceneFieldConstant Scene;
         public AudioClip BackgroundMusic;
         public BoolReference HasIntroCurtainFade;
@@ -26,36 +26,38 @@ namespace Liver {
                 }
             }
 
-            var broker = MessageBroker.Default;
-            
-            broker
+            MessageBroker
+                .Default
                 .Receive<DangerousTile>()
                 .Subscribe(_ => RunOutro())
-                .AddTo(this);
-            
-            broker
-                .Receive<EndGameMessage>()
-                .Subscribe(_ => FinishShowCurtains())
                 .AddTo(this);
 
             RunIntro();
         }
 
+        public void OnEnable() {
+            GameOverScreen.OnOutroComplete += OutroComplete;
+        }
+
+        public void OnDisable() {
+            GameOverScreen.OnOutroComplete -= OutroComplete;
+        }
+
         private void RunIntro() {
-            if (HasIntroCurtainFade.Value && Curtains != null) {
-                Curtains.RunIntro();
+            if (HasIntroCurtainFade.Value && GameOverScreen != null) {
+                GameOverScreen.RunIntro();
             }
         }
 
         private void RunOutro() {
-            if (HasIntroCurtainFade.Value && Curtains != null) {
-                Curtains.RunOutro();
+            if (HasIntroCurtainFade.Value && GameOverScreen != null) {
+                GameOverScreen.RunOutro();
             } else {
-                FinishShowCurtains();
+                OutroComplete();
             }
         }
 
-        private void FinishShowCurtains() {
+        private void OutroComplete() {
             DOTween.KillAll();
             var path = Scene.Value.ScenePath;
             SceneManager.LoadScene(path);

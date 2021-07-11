@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using DG.Tweening.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
@@ -38,6 +39,15 @@ namespace Liver {
             var vec = Vector3Int.FloorToInt(ctx.ReadValue<Vector2>());
             Direction.Value = vec;
             HandleDirection(vec);
+        }
+
+        public void OnPoint(InputAction.CallbackContext ctx) {
+            if (!ctx.performed) return;
+
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out var hit)) {
+                Debug.Log($"Game Object hit = {hit.transform.name}");
+            }
         }
 
         private bool IsMoving() {

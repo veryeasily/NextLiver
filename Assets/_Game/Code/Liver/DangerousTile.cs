@@ -35,8 +35,7 @@ namespace Liver {
                         MessageBroker.Default.Publish(this);
                     }
                 }
-            }
-            catch (OperationCanceledException e) {
+            } catch (OperationCanceledException) {
             }
         }
 

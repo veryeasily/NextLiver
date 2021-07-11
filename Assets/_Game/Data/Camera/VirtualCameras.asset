@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e54c37fd6c424c02b60a2f5ce9090bae, type: 3}
-  m_Name: VirtualCamList
+  m_Name: VirtualCameras
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -20,24 +20,8 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: Grid
-      Entry: 7
-      Data: 0|GitHub.Unity.SerializableDictionary`2[[UnityEngine.Vector3Int, UnityEngine.CoreModule],[Cinemachine.CinemachineVirtualCamera,
-        Cinemachine]], GitHub.Unity.45
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[UnityEngine.Vector3Int,
-        UnityEngine.CoreModule]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
+  XOffset: 11
+  YOffset: 0.5
+  VCamPrefab: {fileID: 1948404080688699260, guid: 949f2717e0ed94db5bcbd04696a85659, type: 3}
+  GameObjects: {fileID: 11400000, guid: 3495414b2e4e94cf584bd53ae9d2d6de, type: 2}

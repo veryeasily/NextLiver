@@ -18,26 +18,26 @@ namespace Liver {
         public ColorReference VisitedColor;
         public GameObjectValueList TriggerGroup;
         public ReactiveProperty<Color> MainColor;
-        
+
         [Required] public BoolReference Visited;
         [Required] public ColorReference MinColor;
         [Required] public ColorReference MaxColor;
         [Required] public FloatReference MinDelay;
         [Required] public FloatReference MaxDelay;
-        
+
         [NonSerialized, ShowInInspector] public Vector3Int Cell;
         private static List<Platform> _platforms = new List<Platform>();
 
         private Grid _grid;
         private CancellationTokenSource _cts = new CancellationTokenSource();
-        
+
         [ShowInInspector] private float _noiseVal;
         [SerializeField, Required] private Line _line;
         [SerializeField, Required] private Rectangle _rectangle;
 
         public void Start() {
             _platforms.Add(this);
-            
+
             _grid = FindObjectOfType<Grid>();
             Cell = _grid.WorldToCell(transform.position);
             GameState.Instance.ObjectGrid[Cell] = gameObject;
@@ -59,7 +59,7 @@ namespace Liver {
 
         private void OnCurrentTileChange(GameObject tile) {
             if (tile != gameObject) return;
-            
+
             Visited.Value = true;
             if (TriggerGroup != null) {
                 foreach (var go in TriggerGroup) {
@@ -98,8 +98,7 @@ namespace Liver {
                     _line.Start = Modify(vec1);
                     _line.End = Modify(vec2);
                 }
-            }
-            catch (OperationCanceledException e) {
+            } catch (OperationCanceledException) {
             }
         }
 
