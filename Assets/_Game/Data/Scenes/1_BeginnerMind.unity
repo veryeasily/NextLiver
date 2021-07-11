@@ -1412,6 +1412,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 164768242}
+  - component: {fileID: 164768243}
   m_Layer: 0
   m_Name: 4_World
   m_TagString: Untagged
@@ -1435,6 +1436,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &164768243
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164768241}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 0}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References: []
 --- !u!1001 &178258414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2906,6 +2924,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1868800467891993603, guid: d17353cf151f54d9c9aba795bfec3ada, type: 3}
   m_PrefabInstance: {fileID: 340563377}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &342752635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 342752636}
+  m_Layer: 0
+  m_Name: '[Controllers]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &342752636
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342752635}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1013691592}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &364810399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8004,7 +8053,7 @@ GameObject:
   - component: {fileID: 1013691592}
   - component: {fileID: 1013691591}
   m_Layer: 0
-  m_Name: '[LevelManager]'
+  m_Name: '[LevelController]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8047,12 +8096,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1013691590}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 342752636}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1018251263
 PrefabInstance:
@@ -12177,12 +12226,6 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  _hasIntroCurtainFade:
-    _usage: 1
-    _value: 0
-    _constant: {fileID: 11400000, guid: 2120d24d1bf044da896f6c68f389cb98, type: 2}
-    _variable: {fileID: 0}
-    _variableInstancer: {fileID: 0}
   _textComponent: {fileID: 1362495987}
   _canvasGroup: {fileID: 769356422}
   _showSpeed: {fileID: 11400000, guid: 2169833cd71584b27af978709b5ebff2, type: 2}

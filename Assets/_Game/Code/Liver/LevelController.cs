@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UniRx;
@@ -8,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Liver {
-    public class LevelManager : SerializedMonoBehaviour {
+    public class LevelController : SerializedMonoBehaviour {
         public Curtains Curtains;
         public SceneFieldConstant Scene;
         public AudioClip BackgroundMusic;

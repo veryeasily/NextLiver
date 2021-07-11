@@ -4,7 +4,7 @@ using UniRx;
 using UnityEngine;
 
 namespace Liver {
-    public class DialogueManager : SerializedMonoBehaviour {
+    public class DialogueController : SerializedMonoBehaviour {
         public TMP_Text TextComponent;
 
         public void Start() {
