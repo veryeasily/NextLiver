@@ -26,19 +26,20 @@ namespace Liver {
         [Required] public FloatReference MaxDelay;
 
         [NonSerialized, ShowInInspector] public Vector3Int Cell;
-        private static List<Platform> _platforms = new List<Platform>();
 
         private Grid _grid;
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
         [ShowInInspector] private float _noiseVal;
+        [ShowInInspector] private Vector2Int _gridVec;
         [SerializeField, Required] private Line _line;
         [SerializeField, Required] private Rectangle _rectangle;
 
         public void Start() {
-            _platforms.Add(this);
-
             _grid = FindObjectOfType<Grid>();
+            var toCast = _grid.WorldToCell(transform.position);
+            _gridVec = new Vector2Int(toCast.x, toCast.y);
+            SectionSpawner.ExistingPlatforms.Add(_gridVec, this);
             Cell = _grid.WorldToCell(transform.position);
             GameState.Instance.ObjectGrid[Cell] = gameObject;
             SyncColor();
