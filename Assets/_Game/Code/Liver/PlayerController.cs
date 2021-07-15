@@ -8,9 +8,9 @@ using UnityAtoms;
 using UnityAtoms.BaseAtoms;
 
 namespace Liver {
-    public class Player : SerializedMonoBehaviour {
+    public class PlayerController : SerializedMonoBehaviour {
         // ReSharper disable once MemberCanBePrivate.Global
-        public static Player Instance;
+        public static PlayerController Instance;
         public FloatReference MoveSpeed;
         public Vector3IntVariable Position;
         public Vector3IntVariable Direction;
