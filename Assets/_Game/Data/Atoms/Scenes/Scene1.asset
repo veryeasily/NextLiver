@@ -16,6 +16,6 @@ MonoBehaviour:
   _id: 
   _value:
     _sceneAsset: {fileID: 102900000, guid: 946328acf17834060b27c3f284237a7a, type: 3}
-    _sceneName: 1_BeginnerMind
-    _scenePath: Assets/_Game/Data/Scenes/1_BeginnerMind.unity
+    _sceneName: 1_Ummm
+    _scenePath: Assets/_Game/Data/Scenes/1_Ummm.unity
     _buildIndex: 0

@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Game/Data/Scenes/1_BeginnerMind.unity
+    path: Assets/_Game/Data/Scenes/1_Ummm.unity
     guid: 946328acf17834060b27c3f284237a7a
   - enabled: 1
     path: Assets/_Game/Data/Scenes/x_Audio.unity

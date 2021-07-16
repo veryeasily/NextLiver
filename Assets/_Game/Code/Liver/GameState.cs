@@ -1,5 +1,6 @@
 using UniRx;
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityAtoms;
 using UnityAtoms.BaseAtoms;
@@ -9,7 +10,7 @@ namespace Liver {
     public class GameState : SerializedMonoBehaviour {
         public static GameState Instance;
 
-        public ReactiveDictionary<Vector3Int, GameObject> ObjectGrid;
+        public ReactiveDictionary<Vector3Int, GameObject> ObjectGrid = new ReactiveDictionary<Vector3Int, GameObject>();
         // public FloatReactiveProperty Bottom = new FloatReactiveProperty(0f);
         // public FloatReactiveProperty Left = new FloatReactiveProperty(0f);
         // public FloatReactiveProperty Right = new FloatReactiveProperty(0f);

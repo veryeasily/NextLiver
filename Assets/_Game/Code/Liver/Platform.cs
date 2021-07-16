@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Shapes;
@@ -24,28 +23,22 @@ namespace Liver {
         [Required] public ColorReference MaxColor;
         [Required] public FloatReference MinDelay;
         [Required] public FloatReference MaxDelay;
-
-        [NonSerialized, ShowInInspector] public Vector3Int Cell;
-
-        private Grid _grid;
+        [SerializeField] [Required] private Line _line;
+        [SerializeField] [Required] private Rectangle _rectangle;
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
         [ShowInInspector] private float _noiseVal;
-        [ShowInInspector] private Vector2Int _gridVec;
-        [SerializeField, Required] private Line _line;
-        [SerializeField, Required] private Rectangle _rectangle;
+
+        private GameState _state;
 
         public void Start() {
-            _grid = FindObjectOfType<Grid>();
-            var toCast = _grid.WorldToCell(transform.position);
-            _gridVec = new Vector2Int(toCast.x, toCast.y);
-            SectionSpawner.ExistingPlatforms.Add(_gridVec, this);
-            Cell = _grid.WorldToCell(transform.position);
-            GameState.Instance.ObjectGrid[Cell] = gameObject;
+            _state = FindObjectOfType<GameState>();
+            var grid = GetComponentInParent<Grid>();
+            _state.ObjectGrid.Add(grid.WorldToCell(transform.position), gameObject);
             SyncColor();
             MainColor.Subscribe(_ => SyncColor()).AddTo(this);
             StartLoop();
-            GameState.Instance.CurrentTile.Subscribe(OnCurrentTileChange).AddTo(this);
+            _state.CurrentTile.Subscribe(OnCurrentTileChange).AddTo(this);
         }
 
         public void OnDestroy() {
@@ -62,26 +55,10 @@ namespace Liver {
             if (tile != gameObject) return;
 
             Visited.Value = true;
-            if (TriggerGroup != null) {
-                foreach (var go in TriggerGroup) {
+            if (TriggerGroup != null)
+                foreach (var go in TriggerGroup)
                     go.GetComponent<Platform>().Visited.Value = true;
-                }
-            }
         }
-
-        // public void OnChangePlayerPosition(Vector3Int playerCell) {
-        //     if (Cell != playerCell) {
-        //         return;
-        //     }
-        //
-        //     CurrentPlatform.Value = gameObject;
-        //     Visited.Value = true;
-        //     if (TriggerGroup != null) {
-        //         foreach (var go in TriggerGroup) {
-        //             go.GetComponent<Platform>().Visited.Value = true;
-        //         }
-        //     }
-        // }
 
         private void SyncColor() {
             _line.Color = MainColor.Value;
@@ -112,11 +89,10 @@ namespace Liver {
         }
 
         private Vector2 Modify(Vector2 vec) {
-            if (Mathf.Abs(vec.x) > Mathf.Abs(vec.y)) {
+            if (Mathf.Abs(vec.x) > Mathf.Abs(vec.y))
                 vec.x = vec.x > 0 ? 0.5f : -0.5f;
-            } else {
+            else
                 vec.y = vec.y > 0 ? 0.5f : -0.5f;
-            }
 
             return vec;
         }
