@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Shapes;
@@ -24,23 +23,29 @@ namespace Liver {
         [Required] public ColorReference MaxColor;
         [Required] public FloatReference MinDelay;
         [Required] public FloatReference MaxDelay;
-
-        [NonSerialized, ShowInInspector] public Vector3Int Cell;
-
-        private Grid _grid;
+        [SerializeField] [Required] private Line _line;
+        [SerializeField] [Required] private Rectangle _rectangle;
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        [ShowInInspector] private float _noiseVal;
+        private Grid _grid;
         [ShowInInspector] private Vector2Int _gridVec;
-        [SerializeField, Required] private Line _line;
-        [SerializeField, Required] private Rectangle _rectangle;
+
+        [ShowInInspector] private float _noiseVal;
+
+        [field: TabGroup("Location")]
+        [field: ShowInInspector]
+        [field: ReadOnly]
+        [field: PropertyOrder(-1)]
+        public Vector3Int Cell { get; private set; }
+
 
         public void Start() {
             _grid = FindObjectOfType<Grid>();
-            var toCast = _grid.WorldToCell(transform.position);
+            var position = transform.position;
+            var toCast = _grid.WorldToCell(position);
             _gridVec = new Vector2Int(toCast.x, toCast.y);
             SectionSpawner.ExistingPlatforms.Add(_gridVec, this);
-            Cell = _grid.WorldToCell(transform.position);
+            Cell = _grid.WorldToCell(position);
             GameState.Instance.ObjectGrid[Cell] = gameObject;
             SyncColor();
             MainColor.Subscribe(_ => SyncColor()).AddTo(this);
@@ -62,11 +67,9 @@ namespace Liver {
             if (tile != gameObject) return;
 
             Visited.Value = true;
-            if (TriggerGroup != null) {
-                foreach (var go in TriggerGroup) {
+            if (TriggerGroup != null)
+                foreach (var go in TriggerGroup)
                     go.GetComponent<Platform>().Visited.Value = true;
-                }
-            }
         }
 
         // public void OnChangePlayerPosition(Vector3Int playerCell) {
@@ -112,11 +115,10 @@ namespace Liver {
         }
 
         private Vector2 Modify(Vector2 vec) {
-            if (Mathf.Abs(vec.x) > Mathf.Abs(vec.y)) {
+            if (Mathf.Abs(vec.x) > Mathf.Abs(vec.y))
                 vec.x = vec.x > 0 ? 0.5f : -0.5f;
-            } else {
+            else
                 vec.y = vec.y > 0 ? 0.5f : -0.5f;
-            }
 
             return vec;
         }
