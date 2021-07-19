@@ -56,8 +56,8 @@ namespace Liver {
             if (dir == Vector3Int.zero) return;
 
             var updateVec = Position.Value + dir;
-            var cells = from go in PlatformGameObjects select go.GetComponent<Platform>().Cell;
-            if (cells.Contains(updateVec)) {
+            var platforms = GameState.Instance.ObjectGrid.Keys;
+            if (platforms.Contains(updateVec)) {
                 var updatePos = _grid.GetCellCenterWorld(updateVec);
                 transform.DOMove(updatePos, 1f / MoveSpeed.Value).OnComplete(SyncPosition);
             } else {

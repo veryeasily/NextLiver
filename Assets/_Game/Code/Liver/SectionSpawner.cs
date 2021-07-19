@@ -63,7 +63,6 @@ namespace Liver {
                 case Kind.Space: {
                     if (Grid.GetTile(tileVec)) {
                         var platform = Grid.GetTile(tileVec);
-                        var data = platform.GetTileData(tileVec,);
                         Destroy(platform);
                     }
 

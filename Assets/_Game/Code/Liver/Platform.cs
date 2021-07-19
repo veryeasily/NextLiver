@@ -34,7 +34,7 @@ namespace Liver {
         public void Start() {
             _state = FindObjectOfType<GameState>();
             var grid = GetComponentInParent<Grid>();
-            _state.ObjectGrid.Add(grid.WorldToCell(transform.position), gameObject);
+            // _state.ObjectGrid.Add(grid.WorldToCell(transform.position), gameObject);
             SyncColor();
             MainColor.Subscribe(_ => SyncColor()).AddTo(this);
             StartLoop();
